@@ -7,7 +7,7 @@ var app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(bodyParser.json({ type: "application/vnd.api+json" })); //app.use(express.bodyParser());
+app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 //app.use(express.static(__dirname + "/client"));
 app.use(express.static(__dirname + "/node_modules"));
@@ -31,7 +31,6 @@ db.connect(err => {
 
 //add expense
 app.post("/expense", (req, res, result) => {
-  //console.log(req.body);
   let sql = `insert into expense(amount,datee,category) values ("${
     req.body.amount
   }","${req.body.datee}","${req.body.category}");`;
@@ -39,7 +38,7 @@ app.post("/expense", (req, res, result) => {
     if (err) throw err;
     res.send(result);
     console.log("added successfully");
-    console.log(req.body);
+    //console.log(req.body);
   });
 });
 
@@ -48,7 +47,6 @@ app.get("/expense", (req, res) => {
   let sql = "SELECT * FROM expense";
   db.query(sql, (err, result) => {
     if (err) throw err;
-    //ßconsole.log(result);
     res.send(result);
   });
 });
@@ -58,7 +56,6 @@ app.get("/track", (req, res) => {
   let sql = "SELECT category FROM expense";
   db.query(sql, (err, result) => {
     if (err) throw err;
-    //ßconsole.log(result);
     res.send(result);
   });
 });
@@ -68,7 +65,6 @@ app.get("/total", (req, res) => {
   let sql = "SELECT sum(amount) FROM expense";
   db.query(sql, (err, result) => {
     if (err) throw err;
-    //ßconsole.log(result);
     res.send(result);
   });
 });
@@ -78,9 +74,8 @@ app.get("/date", (req, res) => {
   let sql = `SELECT datee FROM expense where category = "${req.body.category}"`;
   db.query(sql, (err, result) => {
     if (err) throw err;
-    //ßconsole.log(result);
     res.send(result);
-    console.log(result);
+    //console.log(result);
   });
 });
 
@@ -92,7 +87,7 @@ app.get("/subtotal", (req, res) => {
   db.query(sql, (err, result) => {
     if (err) throw err;
     res.send(result);
-    console.log(result);
+    //console.log(result);
   });
 });
 
