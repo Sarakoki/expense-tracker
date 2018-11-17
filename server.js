@@ -1,22 +1,19 @@
 var express = require("express");
 var mysql = require("mysql");
 var bodyParser = require("body-parser");
-var morgan = require("morgan");
-var path = require("path");
+// var morgan = require("morgan");
+// var path = require("path");
 // var Sequelize = require("sequelize");
 // var connect = require("connect");
 var app = express();
 
-app.use(express.static(__dirname));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-// app.use(require("connect").bodyParser());
 
-app.use(bodyParser.json({ type: "application/vnd.api+json" }));
-
+app.use(bodyParser.json({ "Content-Type": "application/json" }));
+//application/vnd.api+json
 // app.use(express.static(__dirname + "/client/src/"));
 app.use(express.static(__dirname + "/node_modules"));
-app.use(express.static(path.join(__dirname)));
 
 //create db
 const db = mysql.createConnection({
@@ -38,7 +35,7 @@ db.connect(err => {
 //add expense
 
 app.post("/expense", (req, res) => {
-  var { amount, datee, category } = req.body;
+  var data = [req.body.category, req.body.amount, req.body.datee];
   let sql = `INSERT INTO expense(amount,datee,category) values ("${
     req.body.amount
   }","${req.body.datee}","${req.body.category}");`;
@@ -47,7 +44,7 @@ app.post("/expense", (req, res) => {
       console.log(err);
     } else {
       res.setHeader("Access-Control-Allow-Origin", "*");
-      res.send(req.body.amount);
+      // res.send(req.body.amount);
       console.log("added successfully");
     }
     console.log(req.body);
