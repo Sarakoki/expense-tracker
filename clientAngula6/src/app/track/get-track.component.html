@@ -1,0 +1,12 @@
+<div class="container-fluied">
+  <div *ngFor="let track of tracks$">
+    <br />
+    <button
+      routerLink="/expense/{{track.expense_id}}"
+      class="btn btn-light btn-m"
+      routerLinkActive="active"
+    >
+      {{ track.category }}
+    </button>
+  </div>
+</div>

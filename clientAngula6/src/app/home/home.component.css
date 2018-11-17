@@ -1,0 +1,33 @@
+h1 {
+  color: rgb(120, 61, 119);
+  font-size: 50px;
+  font-family: "Montserrat", sans-serif;
+  position: absolute;
+  top: 20px;
+}
+
+#main {
+  color: rgb(219, 143, 205);
+  font-size: 20px;
+  position: absolute;
+  top: 170px;
+}
+
+h4 {
+  color: rgb(46, 42, 165);
+}
+#main1 {
+  color: rgb(219, 143, 205);
+  font-size: 30px;
+  position: absolute;
+  top: 450px;
+}
+
+button {
+  color: rgb(219, 143, 205);
+  font-size: 30px;
+  position: absolute;
+  top: 130px;
+  float: left;
+  left: 90;
+}
