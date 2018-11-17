@@ -2,17 +2,21 @@ var express = require("express");
 var mysql = require("mysql");
 var bodyParser = require("body-parser");
 var morgan = require("morgan");
-// var path = require("path");
-
+var path = require("path");
+// var Sequelize = require("sequelize");
+// var connect = require("connect");
 var app = express();
-// app.use(express.static(__dirname));
+
+app.use(express.static(__dirname));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+// app.use(require("connect").bodyParser());
+
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 // app.use(express.static(__dirname + "/client/src/"));
 app.use(express.static(__dirname + "/node_modules"));
-// app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname)));
 
 //create db
 const db = mysql.createConnection({
@@ -34,18 +38,21 @@ db.connect(err => {
 //add expense
 
 app.post("/expense", (req, res) => {
+  var { amount, datee, category } = req.body;
   let sql = `INSERT INTO expense(amount,datee,category) values ("${
     req.body.amount
   }","${req.body.datee}","${req.body.category}");`;
   db.query(sql, (err, result) => {
-    if (err) throw err;
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.send(req.body);
-    console.log("added successfully", result);
-    //console.log(req.body);
+    if (err) {
+      console.log(err);
+    } else {
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.send(req.body.amount);
+      console.log("added successfully");
+    }
+    console.log(req.body);
   });
 });
-
 //get the expenses
 app.get("/expense", (req, res) => {
   let sql = "SELECT * FROM expense";
@@ -68,18 +75,6 @@ app.get("/expense/:expenseID", (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.send(results[id]);
   });
-  // if (err) throw err;
-  // // res.setHeader("Access-Control-Allow-Origin", "*");
-  // Object.keys(result).forEach(function(key) {
-  //   // var row = result[key];
-
-  //   res.send(result);
-  //   console.log(result[key].amount);
-  //});
-
-  // res.send(result);
-  // console.log(result);
-  //});
 });
 
 //get the saved track
@@ -114,28 +109,22 @@ app.get("/date", (req, res) => {
 });
 
 //sum the whole total for the category
-app.get("/subtotal", (req, res) => {
+app.get("/subtotal/:total", (req, res) => {
+  const id = req.params.total;
   let sql = `SELECT sum(amount) FROM expense where category = "${
     req.body.category
   }"`;
-  db.query(sql, (err, result) => {
+  db.query(sql, { _id: id }, (err, result) => {
     if (err) throw err;
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.send(result);
-    //console.log(result);
+    console.log(result);
   });
 });
 
-// app.get("/", function(req, res) {
-//   res.render("/index.html");
-// });
-
-// app.get("/", function(req, res) {
-//   res.setHeader("Access-Control-Allow-Origin: *");
-//   // response.setHeader("Content-Type", "text/html");
-
-//   res.send("index.html");
-// });
+app.get("/", function(req, res) {
+  res.render("/index.html");
+});
 
 app.listen("3000", () => {
   console.log("server listeninig on port 3000");
