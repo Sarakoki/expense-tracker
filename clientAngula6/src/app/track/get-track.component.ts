@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { trackService } from "../track.service";
+import { appService } from "../app.service";
 import { Observable } from "rxjs";
 //to hold data the returnfrom the api
 
@@ -8,28 +8,33 @@ import { Observable } from "rxjs";
   templateUrl: "./get-track.component.html",
   styleUrls: ["./get-track.component.css"]
 })
-export class getTrackComponent implements OnInit {
-  tracks$: Object;
+export class getTrackComponent {
+  // tracks: String;
+  // subtotal: any;
+  constructor(private tracksService: appService) {}
 
-  constructor(private tracksService: trackService) {}
-
-  ngOnInit() {
-    this.tracksService.getData().subscribe(
-      data => {
-        this.tracks$ = data;
-        console.log(data);
-      },
-      err => console.error(err),
-      () => console.log("done loading")
-    );
+  setType(value) {
+    this.tracksService.changeCategory(value);
   }
-  // getData() {
-  //   this.tracksService.getData().subscribe(
-  //     data => {
-  //       this.expense = data;
-  //     },
-  //     err => console.error(err),
-  //     () => console.log("done loading foods")
-  //   );
-  // }
 }
+
+// ngOnInit() {
+//   this.tracksService.getData().subscribe(
+//     data => {
+//       this.tracks = data;
+//       console.log(data);
+//     },
+//     err => console.error(err),
+//     () => console.log("done loading")
+//   );
+// }
+
+// getData() {
+//   this.tracksService.getData().subscribe(
+//     data => {
+//       this.expense = data;
+//     },
+//     err => console.error(err),
+//     () => console.log("done loading foods")
+//   );
+// }

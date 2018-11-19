@@ -23,11 +23,20 @@ h4 {
   top: 450px;
 }
 
-button {
+#button2 {
   color: rgb(219, 143, 205);
   font-size: 30px;
   position: absolute;
-  top: 130px;
+  top: 100px;
+  float: left;
+  left: 90;
+}
+
+#button1 {
+  color: rgb(219, 143, 205);
+  font-size: 30px;
+  position: absolute;
+  top: 50px;
   float: left;
   left: 90;
 }

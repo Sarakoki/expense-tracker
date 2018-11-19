@@ -7,7 +7,7 @@ import { AppComponent } from "./app.component";
 import { getTrackComponent } from "./track/get-track.component";
 import { ExpenseTrackComponent } from "./track/expense-track.component";
 import { HomeComponent } from "./home/home.component";
-import { trackService } from "./track.service";
+import { appService } from "./app.service";
 // import { ExpenseService } from "./expense.service";
 
 @NgModule({
@@ -30,12 +30,12 @@ import { trackService } from "./track.service";
         component: getTrackComponent
       },
       {
-        path: "expense/:expense_id",
+        path: "expense",
         component: ExpenseTrackComponent
       }
     ])
   ],
-  providers: [trackService],
+  providers: [appService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

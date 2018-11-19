@@ -2,15 +2,17 @@
   <h1>Welcome to {{ title }}!</h1>
 </div>
 <div class="container-fluied" id="main">
-  <div>Date <br /><input type="month" /></div>
-  <div id="amount"><br /><br />Amount <br /><input type="text" /></div>
+  <div>Date <br /><input ngModel="datee" type="date" /></div>
+  <div id="amount">
+    <br /><br />Amount <br /><input ngModel="amount" type="text" />
+  </div>
   <div>
     <br /><br />
     Category<br />
-    <select>
+    <select ngModel="category">
       <option disabled selected value> -- select an option -- </option>
       <option value="Housing">Housing</option>
-      <option value="Taxee">Taxee</option>
+      <option value="Taxes">Taxes</option>
       <option value="Repair">Repair</option>
       <option value="Transportation">Transportation</option>
       <option value="Entreatment">Entreatment</option>
@@ -18,10 +20,21 @@
   </div>
 </div>
 <br />
-<br />
+
 <div id="main1">
-  <h4>Total: {{ total[0]["sum(amount)"] }}</h4>
+  <br />
   <button
+    id="button1"
+    (click)="postexp()"
+    routerLink="/track"
+    class="btn btn-light btn-sm"
+    role="button"
+  >
+    Add
+  </button>
+  <br />
+  <button
+    id="button2"
     (click)="ngOnInit()"
     routerLink="/track"
     class="btn btn-light btn-sm"
@@ -32,9 +45,6 @@
   </button>
   <br />
   <br />
+  <h4>Total: {{ total }}</h4>
+  <br />
 </div>
-<!--
-  <div *ngFor="let expense of expenses">
-    <span>{{ expense.online }}</span> {{ expense.name }}
-  </div>
--->

@@ -1,12 +1,41 @@
-<div class="container-fluied">
-  <div *ngFor="let track of tracks$">
-    <br />
-    <button
-      routerLink="/expense/{{track.expense_id}}"
-      class="btn btn-light btn-m"
-      routerLinkActive="active"
-    >
-      {{ track.category }}
-    </button>
+<!--
+  <div class="container-fluied">
+    <div *ngFor="let track of tracks$">
+      <br />
+      <button
+        routerLink="/expense/{{track.expense_id}}"
+        class="btn btn-light btn-m"
+        routerLinkActive="active"
+      >
+        {{ track.category }}
+      </button>
+    </div>
   </div>
+-->
+
+<div class="track">
+  <header class="track-header">
+    <br />
+    <br />
+    <br />
+    <a routerLink="/expense"
+      ><button (click)="setType(Housing)">Housing</button></a
+    >
+    <br />
+    <br />
+    <a routerLink="/expense"
+      ><button (click)="setType(Repair)">Repair</button></a
+    >
+    <br />
+    <br />
+    <a routerLink="/expense"
+      ><button (click)="setType(Transportation)">Transportation</button></a
+    >
+    <br />
+    <br />
+    <a routerLink="/expense"><button (click)="setType(Taxes)">Taxes</button></a>
+    <br />
+    <br />
+    <a routerLink="/"><button>back</button></a>
+  </header>
 </div>
